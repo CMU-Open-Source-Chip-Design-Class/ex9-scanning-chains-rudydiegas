@@ -153,12 +153,19 @@ async def input_chain_single(dut, bit, ff_index):
 #       the specified FF?
 
 async def input_chain(dut, bit_list, ff_index):
+    wait_clks = ff_index + len(bit_list)
 
-    ######################
-    # TODO: YOUR CODE HERE
-    ######################
+    bit_index = ff_index + len(bit_list) - 1
+    dut.scan_en = 1
+    for i in range(wait_clks):
+        if (bit_index >= ff_index):
+            dut.scan_in = bit_list[bit_index - ff_index]
+            bit_index -= 1
+        else:
+            dut.scan_in = 0
+        await step_clock(dut)
 
-    pass
+    dut.scan_en = 0
 
 #-----------------------------------------------
 
