@@ -155,11 +155,11 @@ async def input_chain_single(dut, bit, ff_index):
 async def input_chain(dut, bit_list, ff_index):
     wait_clks = ff_index + len(bit_list)
 
-    bit_index = ff_index + len(bit_list) - 1
+    bit_index = ff_index - 1
     dut.scan_en = 1
     for i in range(wait_clks):
-        if (bit_index >= ff_index):
-            dut.scan_in = bit_list[bit_index - ff_index]
+        if (bit_index >= 0):
+            dut.scan_in = bit_list[bit_index]
             bit_index -= 1
         else:
             dut.scan_in = 0
@@ -175,6 +175,7 @@ async def input_chain(dut, bit_list, ff_index):
 async def output_chain_single(dut, ff_index):
     wait_clks = CHAIN_LENGTH - (ff_index + 1)
 
+    dut.scan_en = 0
     for i in range(wait_clks):
         await step_clock(dut)
 
@@ -188,12 +189,23 @@ async def output_chain_single(dut, ff_index):
 #   for Part H of Task 1
 
 async def output_chain(dut, ff_index, output_length):
+    last_idx = ff_index + output_length - 1
+    clks_till_data = CHAIN_LENGTH - (last_idx + 1)
+    wait_clks = CHAIN_LENGTH - (ff_index + 1)
 
-    ######################
-    # TODO: YOUR CODE HERE
-    ######################
+    out = [0] * output_length
 
-    pass
+    bit_index = ff_index + output_length - 1
+    dut.scan_en = 0
+    for i in range(wait_clks):
+        if (clks_till_data <= 0):
+            out[bit_index] = dut.scan_out
+            bit_index -= 1
+
+        await step_clock(dut)
+        clks_till_data -= 1
+
+    return out
 
 #-----------------------------------------------
 
