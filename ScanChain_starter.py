@@ -166,12 +166,12 @@ async def input_chain(dut, bit_list, ff_index):
 # chain at specified index
 
 async def output_chain_single(dut, ff_index):
+    wait_clks = CHAIN_LENGTH - (ff_index + 1)
 
-    ######################
-    # TODO: YOUR CODE HERE
-    ######################
+    for i in range(wait_clks):
+        await step_clock(dut)
 
-    pass
+    return dut.scan_out
 
 #-----------------------------------------------
 
