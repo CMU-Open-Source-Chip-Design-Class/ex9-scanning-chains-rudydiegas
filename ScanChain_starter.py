@@ -32,23 +32,23 @@ class Register:
 
 # Holds information about the scan chain
 # in your design.
-        
+
 ################
 # DO NOT EDIT!!!
 ################
 class ScanChain:
 
     def __init__(self) -> None:
-        self.registers = dict()     # Dictionary of Register objects, indexed by 
+        self.registers = dict()     # Dictionary of Register objects, indexed by
                                     # register name
-        
+
         self.chain_length = 0       # Number of FFs in chain
 
 
 # Sets up a new ScanChain object
 # and returns it
 
-################     
+################
 # DO NOT EDIT!!!
 ################
 def setup_chain(filename):
@@ -67,7 +67,7 @@ def setup_chain(filename):
 
         else:
             scan_chain.registers[name].index_list.append((int(bit), int(index)))
-        
+
     f.close()
 
     for name in scan_chain.registers:
@@ -76,7 +76,7 @@ def setup_chain(filename):
         new_list = list()
         for tuple in cur_reg.index_list:
             new_list.append(tuple[1])
-        
+
         cur_reg.index_list = new_list
         cur_reg.bit_list   = [0] * len(new_list)
         cur_reg.size = len(new_list)
@@ -102,7 +102,7 @@ def print_register(reg):
 
 # Prints info of given ScanChain object
 
-################   
+################
 # DO NOT EDIT!!!
 ################
 def print_chain(chain):
@@ -118,45 +118,45 @@ def print_chain(chain):
 #-------------------------------------------------------------------
 
 # This function steps the clock once.
-    
+
 # Hint: Use the Timer() builtin function
 async def step_clock(dut):
 
     ######################
-    # TODO: YOUR CODE HERE 
+    # TODO: YOUR CODE HERE
     ######################
 
     pass
-    
+
 
 #-------------------------------------------------------------------
 
 # This function places a bit value inside FF of specified index.
-        
+
 # Hint: How many clocks would it take for value to reach
 #       the specified FF?
-        
+
 async def input_chain_single(dut, bit, ff_index):
 
     ######################
-    # TODO: YOUR CODE HERE 
+    # TODO: YOUR CODE HERE
     ######################
 
     pass
-    
+
 #-------------------------------------------------------------------
 
 # This function places multiple bit values inside FFs of specified indexes.
 # This is an upgrade of input_chain_single() and should be accomplished
 #   for Part H of Task 1
-        
+
 # Hint: How many clocks would it take for value to reach
 #       the specified FF?
-        
+
 async def input_chain(dut, bit_list, ff_index):
 
     ######################
-    # TODO: YOUR CODE HERE 
+    # TODO: YOUR CODE HERE
     ######################
 
     pass
@@ -164,30 +164,30 @@ async def input_chain(dut, bit_list, ff_index):
 #-----------------------------------------------
 
 # This function retrieves a single bit value from the
-# chain at specified index 
-        
+# chain at specified index
+
 async def output_chain_single(dut, ff_index):
 
     ######################
-    # TODO: YOUR CODE HERE 
+    # TODO: YOUR CODE HERE
     ######################
 
-    pass       
+    pass
 
 #-----------------------------------------------
 
 # This function retrieves a single bit value from the
-# chain at specified index 
+# chain at specified index
 # This is an upgrade of input_chain_single() and should be accomplished
 #   for Part H of Task 1
-        
+
 async def output_chain(dut, ff_index, output_length):
 
     ######################
-    # TODO: YOUR CODE HERE 
+    # TODO: YOUR CODE HERE
     ######################
 
-    pass       
+    pass
 
 #-----------------------------------------------
 
@@ -204,6 +204,6 @@ async def test(dut):
     chain = setup_chain(FILE_NAME)
 
     ######################
-    # TODO: YOUR CODE HERE 
+    # TODO: YOUR CODE HERE
     ######################
 
