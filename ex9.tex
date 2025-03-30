@@ -1,4 +1,4 @@
-% Created 2025-03-30 Sun 15:26
+% Created 2025-03-30 Sun 15:29
 % Intended LaTeX compiler: pdflatex
 \documentclass[a4paper, 12pt]{scrartcl}
 \usepackage[utf8]{inputenc}
@@ -176,12 +176,12 @@
 
 \maketitle
 \section{Task 1}
-\label{sec:orgbc318e9}
+\label{sec:org6aaefe6}
 \subsection{Parts E - H}
-\label{sec:org0e014dd}
+\label{sec:org698774a}
 Code is uploaded in repo in file ScanChain\_starter.py
 \section{Task 2}
-\label{sec:orgc131462}
+\label{sec:org0955b91}
 Code for testing adder is in ScanChain\_starter.py. The functions used are adder\_test() and gen\_test\_case(). I did CRT with 20 sets of inputs to verify my work. I don't have any design artifacts besides the output of my tests to prove their correctness. It is after this paragraph. As for reflecting on my work for this task, I don't have much to say. I basically pulled my gen\_test\_case() function from exercise 5 and tweaked it a bit so that the inputs were in the form of a list. This allowed me to easily input my test cases into my input\_chain() function. I then waited a clock cycle and simply had an assertion that compared the value in the x\_out register to the actual sum.
 
 \begin{Code}
@@ -308,7 +308,7 @@ CORRECT SUM:0b11
 \end{Verbatim}
 \end{Code}
 \section{Task 3}
-\label{sec:org6764eeb}
+\label{sec:orgd038073}
 My code for this task is in ScanChain\_starter.py under the function hidden\_test(). The output of that function is in this document after the reconstructed state diagram. For reflection, I'll start by describing the process. Since I saw that cur\_state was only a 3-bit vector in the .log file and that there was only one 1-bit input, I used the scan chain to feed each possible state in twice, once with data\_avail set to 0 and then again with data\_avail set to 1. Then I simply waited a cycle, used my output\_chain() function to grab the next state out of the cur\_state registers, and printed that alongside the output variables. I think that it was a pretty cool exercise showing how useful scan chains can actually be even with limited knowledge of the design. It was definitely made easier by it being a Moore machine and only having one 1-bit input though.
 
 \begin{center}
@@ -431,9 +431,9 @@ OUT\_WRITING: \EFhn{0}
 \end{Verbatim}
 \end{Code}
 \section{Task 4}
-\label{sec:org52c6df2}
+\label{sec:org1900742}
 \subsection{Part A}
-\label{sec:orgcfe0573}
+\label{sec:org4628fae}
 Vectors highlighted the same color will catch more than one fault.
 \begin{center}
 \includegraphics[height=0.95\textwidth]{./ex9_fault_vecs.jpeg}
@@ -441,7 +441,7 @@ Vectors highlighted the same color will catch more than one fault.
 
 \newpage
 \subsection{Part B}
-\label{sec:org0e23936}
+\label{sec:orga91b696}
 I chose these vectors by starting at the fault and selecting the values of other variables such that they would result in a contradictory output that I could actually view at x. This process resulted in the vectors described in the previous table. I then fed all of the vectors into the design and determined if an error occurred by looking at my generated output.\\
 
 For fault1.sv, using the vector \{1100\} I detected:
@@ -462,9 +462,9 @@ For fault5.sv, I detected no faults.\\
 
 \newpage
 \subsubsection{Outputs}
-\label{sec:org76d6025}
+\label{sec:org07a6823}
 \paragraph*{fault1.sv}
-\label{sec:org09f43f3}
+\label{sec:org906e2e3}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}VEC: 0b1111
@@ -524,7 +524,7 @@ D VAL: \EFhn{0}
 
 \newpage
 \paragraph*{fault2.sv}
-\label{sec:org4825524}
+\label{sec:orgd9a5fbb}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}VEC: 0b1111
@@ -581,7 +581,7 @@ D VAL: \EFhn{0}
 
 \newpage
 \paragraph*{fault3.sv}
-\label{sec:orge5d0f0d}
+\label{sec:org22797dc}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}VEC: 0b1111
@@ -649,7 +649,7 @@ D VAL: \EFhn{0}
 
 \newpage
 \paragraph*{fault4.sv}
-\label{sec:orgbed9856}
+\label{sec:org80ebcf6}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}VEC: 0b1111
@@ -711,7 +711,7 @@ POSSIBLE w8 SA1
 
 \newpage
 \paragraph*{fault5.sv}
-\label{sec:org6b1604d}
+\label{sec:orgeea328d}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}VEC: 0b1111
@@ -766,11 +766,14 @@ D VAL: \EFhn{0}
 \end{Verbatim}
 \end{Code}
 \section{Task 5}
-\label{sec:orgeab590e}
+\label{sec:org9cc50c5}
 \begin{enumerate}
 \item Two other faults that could occur during manufacturing are a crossover fault and a short. A crossover fault could be detected by driving one of the signals affected and seeing if the other signal matches. A short would be detected in a similar way to how we detect stuck-at faults, since they are modelling the same failure I believe.
 \item Downsides of having a scan-chain include excess logic, leading to more area, and a lower possible maximum frequency, which can affect timing. Upsides include the ability to test your physical circuit for proper functionality and to determine whether specific intermediate wires have a fault, since you can now feed values into specific points in your circuit.
 \item To accomplish this, you can implement a BIST (built-in self test). Circuitry that simply outputs whether the design is working or not and does not require external input nor the need to probe the design's actual outputs to test its funcionality.
 \item I would assume that unexpected things could happen if running optimization after having tested the design with a scan chain. Optimization could create a new type of fault that wasn't detected in the unoptimized design, so one must insert a scan chain once again to test. Essentially, the unoptimized and optimized designs could be completely different, so the testing of one is completely unrelated to the testing of another besides their test vectors.
 \end{enumerate}
+\section{Task 6}
+\label{sec:org8bab7fd}
+I have not gotten into writing much RTL yet. I've mostly just read through Section 11 of the USB 1.1 specification, which is the section regarding USB Hub design. I've ironed out some confusion I had and better understand the datapaths and FSMs that are presented in the spec now. At this point, I believe that I'm ready to being writing RTL since I now have a firm grasp on the architecture and module hierarchy needed to accomplish this design.
 \end{document}
