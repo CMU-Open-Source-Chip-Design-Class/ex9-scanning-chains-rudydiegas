@@ -268,27 +268,23 @@ Vectors highlighted the same color will catch more than one fault.
 
 #+LATEX: \newpage
 ** Part B
-*These outputs are probably wrong. I was confused by this.*\\
+I chose these vectors by starting at the fault and selecting the values of other variables such that they would result in a contradictory output that I could actually view at x. This process resulted in the vectors described in the previous table. I then fed all of the vectors into the design and determined if an error occurred by looking at my generated output.\\
 
-For fault1.sv, I had:
+For fault1.sv, using the vector {1100} I detected:
  - *a* possibly SA1
  - *w1* possibly SA0
  - *b* possibly SA1\\
 
-For fault2.sv I detected no faults.\\
+For fault2.sv, using the vector {1110} I detected that *w3* was SA1.\\
 
-For fault3.sv, I had a variety of possible errors. They were:
- - *c* possibly SA1
- - *w5* possibly SA0
- - *d* possibly SA0
- - *w7* possibly SA0
- - *x* possibly SA0\\
+For fault3.sv, using the vectors {0011}, {1100}, and {1111} I detected that *x* was SA0 due to contradictions in the other errors I detected.\\
 
-For fault4.sv, I had that *x* was SA1.\\
+For fault4.sv, using the vectors {0111}, {1110}, and {0101} I detected that *x* was SA1 due to contradictions in the other errors I detected.\\
 
 For fault5.sv, I detected no faults.\\
 
 
+#+LATEX: \newpage
 *** Outputs
 **** fault1.sv
 #+begin_src python :exports output :tangle no
@@ -315,6 +311,7 @@ A VAL: 0
 B VAL: 1
 C VAL: 1
 D VAL: 1
+POSSIBLE w3 SA1
 
 VEC: 0b111
 X VAL: 0
@@ -368,6 +365,7 @@ A VAL: 0
 B VAL: 1
 C VAL: 1
 D VAL: 1
+POSSIBLE w3 SA1
 
 VEC: 0b111
 X VAL: 0
@@ -428,7 +426,6 @@ A VAL: 0
 B VAL: 1
 C VAL: 1
 D VAL: 1
-POSSIBLE w3 SA1
 
 VEC: 0b111
 X VAL: 0
@@ -487,6 +484,7 @@ A VAL: 0
 B VAL: 1
 C VAL: 1
 D VAL: 1
+POSSIBLE w3 SA1
 
 VEC: 0b111
 X VAL: 1
@@ -575,3 +573,9 @@ B VAL: 0
 C VAL: 1
 D VAL: 0
 #+end_src
+
+* Task 5
+1. Two other faults that could occur during manufacturing are a crossover fault and a short. A crossover fault could be detected by driving one of the signals affected and seeing if the other signal matches. A short would be detected in a similar way to how we detect stuck-at faults, since they are modelling the same failure I believe.
+2. Downsides of having a scan-chain include excess logic, leading to more area, and a lower possible maximum frequency, which can affect timing. Upsides include the ability to test your physical circuit for proper functionality and to determine whether specific intermediate wires have a fault, since you can now feed values into specific points in your circuit.
+3. To accomplish this, you can implement a BIST (built-in self test). Circuitry that simply outputs whether the design is working or not and does not require external input nor the need to probe the design's actual outputs to test its funcionality.
+4. I would assume that unexpected things could happen if running optimization after having tested the design with a scan chain. Optimization could create a new type of fault that wasn't detected in the unoptimized design, so one must insert a scan chain once again to test. Essentially, the unoptimized and optimized designs could be completely different, so the testing of one is completely unrelated to the testing of another besides their test vectors.
