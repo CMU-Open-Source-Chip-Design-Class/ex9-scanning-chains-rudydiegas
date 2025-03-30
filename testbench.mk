@@ -1,6 +1,6 @@
 TOPLEVEL_LANG = verilog
-VERILOG_SOURCES = $(shell pwd)/adder/adder.sv
-TOPLEVEL = adder
+VERILOG_SOURCES = $(shell pwd)/fault/fault5.sv
+TOPLEVEL = fault
 MODULE = ScanChain_starter
 SIM = verilator
 EXTRA_ARGS += --trace -Wno-WIDTHTRUNC -Wno-UNOPTFLAT -Wno-fatal
